@@ -1,0 +1,1 @@
+document.getElementById('print').addEventListener('click',()=>{document.querySelector('.council').open=true;document.querySelectorAll('textarea').forEach(el=>{el.style.height='auto';el.style.height=el.scrollHeight+'px'});window.print()});
