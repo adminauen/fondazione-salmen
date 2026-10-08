@@ -65,7 +65,8 @@
     if (it) {
       c1 += t(45,785,22,'Richiesta di sostegno',true) + t(45,764,9,'Fondazione Hubert e Gisela Salmen',true,'0.18 0.23 0.22');
       c1 += t(45,747,8.5,'Formulario per persone anziane bisognose nel Locarnese e nelle valli.',false,'0.25 0.30 0.29');
-      c1 += bx(45,708,505,26) + t(55,717,8.5,'Inviare il formulario compilato e firmato a: info@fondazionesalmen.ch',true,'0.18 0.30 0.25');
+      c1 += bx(45,700,505,34) + t(55,718,8,'Invio: info@fondazionesalmen.ch oppure per posta:',true,'0.18 0.30 0.25') +
+        t(55,706,7.5,'Fondazione Hubert e Gisela Salmen - Via San Michele 20 - 6612 Ascona',false,'0.18 0.30 0.25');
       c1 += t(45,666,10,'1. Richiesta / segnalazione',true) + t(45,646,7.5,'Descrivete brevemente il motivo della richiesta',false,'0.25 0.30 0.29');
       c1 += t(45,558,10,'2. Persona interessata',true) + t(45,536,7.5,'Nome e cognome') + t(305,536,7.5,'Domicilio');
       c1 += t(45,478,7.5,'Età') + t(305,478,7.5,'Situazione personale') + t(45,420,7.5,'Abita in casa propria / affitto') + t(305,420,7.5,'Rete famigliare');
@@ -83,7 +84,8 @@
     } else {
       c1 += t(45,785,22,'Unterstützungsgesuch',true) + t(45,764,9,'Fondazione Hubert e Gisela Salmen',true,'0.18 0.23 0.22');
       c1 += t(45,747,8.5,'Formular für bedürftige ältere Menschen in der Region Locarno und ihren Tälern.',false,'0.25 0.30 0.29');
-      c1 += bx(45,708,505,26) + t(55,717,8.5,'Ausgefülltes und unterschriebenes Formular senden an: info@fondazionesalmen.ch',true,'0.18 0.30 0.25');
+      c1 += bx(45,700,505,34) + t(55,718,8,'Versand: info@fondazionesalmen.ch oder per Post an:',true,'0.18 0.30 0.25') +
+        t(55,706,7.5,'Fondazione Hubert e Gisela Salmen - Via San Michele 20 - 6612 Ascona',false,'0.18 0.30 0.25');
       c1 += t(45,666,10,'1. Gesuch / Meldung',true) + t(45,646,7.5,'Beschreiben Sie kurz den Grund des Gesuchs',false,'0.25 0.30 0.29');
       c1 += t(45,558,10,'2. Betroffene Person',true) + t(45,536,7.5,'Vor- und Nachname') + t(305,536,7.5,'Wohnort');
       c1 += t(45,478,7.5,'Alter') + t(305,478,7.5,'Persönliche Situation') + t(45,420,7.5,'Wohneigentum / Miete') + t(305,420,7.5,'Familiäres Umfeld');
@@ -155,7 +157,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = lang === 'de' ? 'unterstuetzungsgesuch-de.pdf' : 'richiesta-sostegno-it.pdf';
+    a.download = lang === 'de' ? 'unterstuetzungsgesuch-de-v2.pdf' : 'richiesta-sostegno-it-v2.pdf';
     document.body.appendChild(a);
     a.click();
     a.remove();
