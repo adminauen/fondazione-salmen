@@ -92,6 +92,14 @@
 
         <a
           class="text-link"
+          href="/assets/unterstuetzungsgesuch-de.pdf"
+          download
+        >
+          Ausfüllbares PDF herunterladen ↓
+        </a>
+
+        <a
+          class="text-link"
           href="/assets/unterstuetzungsgesuch-de.docx"
           download
         >
@@ -193,17 +201,13 @@
           <p>Entscheid Nr.: __________　Sitzung: __________</p>
         </details>
 
-        <a
-          class="button no-print"
-          href="/assets/unterstuetzungsgesuch-de.pdf"
-          target="_blank"
-          rel="noopener"
-        >
-          Ausfüllbares PDF öffnen ↗
-        </a>
+        <button class="button no-print" type="button" id="print">
+          PDF mit eingegebenen Daten herunterladen ↓
+        </button>
       </form>
     </section>
 
+    <script src="/form.js"></script>
   </main>
 
   <footer>
