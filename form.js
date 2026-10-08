@@ -44,14 +44,7 @@
       [2, it?'aiuto_proposto':'hilfe', [45,490,550,575], 1, values.help],
       [2, it?'situazione_finanziaria':'finanzielle_situation', [45,365,550,450], 1, values.finances],
       [2, it?'richiesta_fondazione':'gesuch_stiftung', [45,240,550,325], 1, values.foundation],
-      [2, it?'luogo_data':'ort_datum', [45,155,290,185], 0, values.placeDate],
-      [2, it?'firma':'unterschrift', [305,155,550,185], 0, ''],
-      [3, it?'decisione':'entscheid', [45,650,550,682], 0, ''],
-      [3, it?'motivazione':'begruendung', [45,430,550,610], 1, ''],
-      [3, it?'decisione_numero':'entscheid_nummer', [45,350,290,380], 0, ''],
-      [3, it?'seduta':'sitzung', [305,350,550,380], 0, ''],
-      [3, it?'consiglio_luogo_data':'rat_ort_datum', [45,270,290,300], 0, ''],
-      [3, it?'consiglio_firma':'rat_unterschrift', [305,270,550,300], 0, '']
+      [2, it?'luogo_data':'ort_datum', [45,155,290,185], 0, values.placeDate]
     ];
     const fields = defs.map((d, i) => ({p:d[0], n:d[1], r:d[2], multi:!!d[3], v:d[4] || '', id:12+i}));
     const refs = p => fields.filter(f => f.p === p).map(f => f.id + ' 0 R').join(' ');
@@ -61,8 +54,12 @@
     const ln = (x1,y1,x2,y2,w=.5,c='0.82 0.84 0.82') =>
       c + ' RG ' + w + ' w ' + x1 + ' ' + y1 + ' m ' + x2 + ' ' + y2 + ' l S\n';
     const bx = (x,y,w,h) => '0.92 0.94 0.91 rg ' + x + ' ' + y + ' ' + w + ' ' + h + ' re f\n';
-    const foot = () => ln(45,45,550,45) +
-      t(45,29,6.5,'Fondazione Hubert e Gisela Salmen · Via San Michele 20 · 6612 Ascona · info@fondazionesalmen.ch',false,'0.40 0.43 0.42');
+    const rect = (x,y,w,h,c='0.35 0.40 0.38') => c + ' RG 0.8 w ' + x + ' ' + y + ' ' + w + ' ' + h + ' re S\n';
+    const foot = page => ln(45,45,550,45) +
+      t(45,29,6.5, it
+        ? 'Richiesta di sostegno | Versione 1.0 | Pagina ' + page + '/3'
+        : 'Unterstuetzungsgesuch | Version 1.0 | Seite ' + page + '/3',
+        false,'0.40 0.43 0.42');
 
     let c1='', c2='', c3='';
     if (it) {
@@ -74,9 +71,15 @@
       c1 += t(45,478,7.5,'Età') + t(305,478,7.5,'Situazione personale') + t(45,420,7.5,'Abita in casa propria / affitto') + t(305,420,7.5,'Rete famigliare');
       c2 += t(45,785,18,'3. Situazione e sostegno richiesto',true) + t(45,708,7.5,'Situazione di partenza') + t(45,583,7.5,"Valutazione dell'aiuto da proporre");
       c2 += t(45,458,7.5,'Valutazione della situazione finanziaria') + t(45,333,7.5,'Richiesta alla Fondazione') + t(45,192,7.5,'Luogo e data') + t(305,192,7.5,'Firma');
+      c2 += ln(305,155,550,155,0.8,'0.60 0.67 0.64');
       c2 += t(45,127,7,"Allegare, se disponibili, documenti utili alla valutazione della richiesta. I dati saranno trattati esclusivamente per l'esame della domanda.",false,'0.35 0.38 0.37');
-      c3 += t(45,785,18,'Riservato al Consiglio di Fondazione',true) + t(45,690,7.5,'Decisione: Approvata / Respinta');
-      c3 += t(45,618,7.5,'Motivazione / indicazioni / tipo di aiuto concesso') + t(45,387,7.5,'Decisione N.') + t(305,387,7.5,'Seduta') + t(45,307,7.5,'Luogo e data') + t(305,307,7.5,'Firma');
+      c3 += t(45,785,18,'Riservato al Consiglio di Fondazione',true);
+      c3 += t(45,690,8,'Decisione',true) + rect(45,654,14,14) + t(67,656,8,'Approvata') + rect(155,654,14,14) + t(177,656,8,'Respinta');
+      c3 += t(45,618,7.5,'Motivazione / indicazioni / tipo di aiuto concesso') + rect(45,430,505,170,'0.60 0.67 0.64');
+      c3 += t(45,387,7.5,'Decisione N.') + ln(45,350,290,350,0.8,'0.60 0.67 0.64');
+      c3 += t(305,387,7.5,'Seduta') + ln(305,350,550,350,0.8,'0.60 0.67 0.64');
+      c3 += t(45,307,7.5,'Luogo e data') + ln(45,270,290,270,0.8,'0.60 0.67 0.64');
+      c3 += t(305,307,7.5,'Firma') + ln(305,270,550,270,0.8,'0.60 0.67 0.64');
     } else {
       c1 += t(45,785,22,'Unterstützungsgesuch',true) + t(45,764,9,'Fondazione Hubert e Gisela Salmen',true,'0.18 0.23 0.22');
       c1 += t(45,747,8.5,'Formular für bedürftige ältere Menschen in der Region Locarno und ihren Tälern.',false,'0.25 0.30 0.29');
@@ -86,11 +89,17 @@
       c1 += t(45,478,7.5,'Alter') + t(305,478,7.5,'Persönliche Situation') + t(45,420,7.5,'Wohneigentum / Miete') + t(305,420,7.5,'Familiäres Umfeld');
       c2 += t(45,785,18,'3. Ausgangslage und beantragte Unterstützung',true) + t(45,708,7.5,'Ausgangslage') + t(45,583,7.5,'Einschätzung der vorgeschlagenen Hilfe');
       c2 += t(45,458,7.5,'Einschätzung der finanziellen Situation') + t(45,333,7.5,'Gesuch an die Stiftung') + t(45,192,7.5,'Ort und Datum') + t(305,192,7.5,'Unterschrift');
+      c2 += ln(305,155,550,155,0.8,'0.60 0.67 0.64');
       c2 += t(45,127,7,'Falls vorhanden, bitte Unterlagen beilegen, die für die Beurteilung des Gesuchs hilfreich sind. Die Angaben werden nur zur Prüfung des Gesuchs verwendet.',false,'0.35 0.38 0.37');
-      c3 += t(45,785,18,'Vom Stiftungsrat auszufüllen',true) + t(45,690,7.5,'Entscheid: Genehmigt / Abgelehnt');
-      c3 += t(45,618,7.5,'Begründung / Hinweise / Art der gewährten Hilfe') + t(45,387,7.5,'Entscheid Nr.') + t(305,387,7.5,'Sitzung') + t(45,307,7.5,'Ort und Datum') + t(305,307,7.5,'Unterschrift');
+      c3 += t(45,785,18,'Vom Stiftungsrat auszufüllen',true);
+      c3 += t(45,690,8,'Entscheid',true) + rect(45,654,14,14) + t(67,656,8,'Genehmigt') + rect(155,654,14,14) + t(177,656,8,'Abgelehnt');
+      c3 += t(45,618,7.5,'Begründung / Hinweise / Art der gewährten Hilfe') + rect(45,430,505,170,'0.60 0.67 0.64');
+      c3 += t(45,387,7.5,'Entscheid Nr.') + ln(45,350,290,350,0.8,'0.60 0.67 0.64');
+      c3 += t(305,387,7.5,'Sitzung') + ln(305,350,550,350,0.8,'0.60 0.67 0.64');
+      c3 += t(45,307,7.5,'Ort und Datum') + ln(45,270,290,270,0.8,'0.60 0.67 0.64');
+      c3 += t(305,307,7.5,'Unterschrift') + ln(305,270,550,270,0.8,'0.60 0.67 0.64');
     }
-    c1 += foot(); c2 += foot(); c3 += foot();
+    c1 += foot(1); c2 += foot(2); c3 += foot(3);
 
     const o = {};
     o[1] = '<< /Type /Catalog /Pages 2 0 R /AcroForm 3 0 R >>';
@@ -102,7 +111,7 @@
     o[7] = '<< /Length ' + c1.length + ' >>\nstream\n' + c1 + 'endstream';
     o[8] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 9 0 R /Annots [' + refs(2) + '] >>';
     o[9] = '<< /Length ' + c2.length + ' >>\nstream\n' + c2 + 'endstream';
-    o[10] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 11 0 R /Annots [' + refs(3) + '] >>';
+    o[10] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 11 0 R >>';
     o[11] = '<< /Length ' + c3.length + ' >>\nstream\n' + c3 + 'endstream';
 
     fields.forEach(f => {
