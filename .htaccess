@@ -1,0 +1,5 @@
+# Anteprima: rimuovere questo blocco alla pubblicazione definitiva.
+# La password si configura separatamente in Infomaniak > Sicurezza > Protezione cartelle.
+<IfModule mod_headers.c>
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
